@@ -36,7 +36,7 @@ body {
 .newsletter-section,
 .footer {
   background: #222 !important;
-  color: #fff !important;
+  color:white!important;
 }
 .testimonials-title,
 .faq-title,
@@ -53,19 +53,13 @@ body {
   color: goldenrod !important;
 }
 .faq-item p {
-  color: #222 !important;
+  color: green !important;
 }
 .reservation-text,
 .about-section p,
 .contact-address,
-.pricing-section,
-.newsletter-section,
-.footer {
+.pricing-section {
   color: #222 !important;
-}
-.newsletter-section,
-.footer {
-  color: #fff !important;
 }
 .user-bar {
   background: #222 !important;
@@ -79,7 +73,7 @@ body {
   position: relative;
   z-index: 1100;
 }
-#logout-btn {
+#Login-btn {
   background: goldenrod;
   border: none;
   border-radius: 6px;
@@ -88,7 +82,7 @@ body {
   cursor: pointer;
   transition: background 0.3s;
 }
-#logout-btn:hover {
+#Login-btn:hover {
   background: darkorange;
 }
 
@@ -157,13 +151,18 @@ body.dark-mode .nav-dark-btn {
     padding: 0.1rem 0.2rem;
   }
 }
-}
+
 /* Hero Section */
+
+/* ...existing code... */
 .hero-section {
-  background: linear-gradient(120deg, #fffbe7 60%, #fff8e1 100%);
+  /* Remove or comment out the background property */
+  /* background: linear-gradient(120deg, #fffbe7 60%, #fff8e1 100%); */
   padding: 3rem 1rem 2rem 1rem;
   text-align: center;
 }
+/* ...existing code... */
+</style>
 /* Add this to your <style> block */
   .hero-content h1 {
   font-size: 2.7rem;
@@ -621,28 +620,7 @@ body.dark-mode .nav-dark-btn {
   background: darkorange;
 }
 
-/* Spinner */
-#loading-spinner {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255,255,255,0.7);
-  z-index: 5000;
-  align-items: center;
-  justify-content: center;
-}
-#loading-spinner .spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid goldenrod;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
-}
+
 
 /* Responsive for mobile */
 @media (max-width: 600px) {
@@ -755,7 +733,7 @@ body.dark-mode .about-section {
 .nav-dark-btn {
   background: none;
   border: none;
-  color: black
+  color: black;
   font-size: 1.3rem;
   margin-left: 10px;
   cursor: pointer;
@@ -781,11 +759,81 @@ body.dark-mode .reservation-text {
 }
 body.dark-mode .hero-content h2,
 body.dark-mode .hero-content p {
-  color: #fff !important;
+  color:goldenrod !important;
 }
 body.dark-mode .hero-content p {
   /* If you want the "Do you Have a Special Request?" text extra bold: */
   font-weight: 600;
+}
+body.dark-mode .hero-content h1 {
+  color: #FFD700 !important;
+  text-shadow: 0 0 2px #222, 1px 1px 2px #000;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 18px;
+  text-decoration: none;
+}
+.logo-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.logo-nav-container nav {
+  flex: 1;
+}
+/* Add this to your style block */
+.logo-nav-container nav {
+  position: relative;
+}
+/* Hamburger hidden by default, shown on small screens */
+.hamburger {
+  display: left;
+  flex-direction: column;
+  justify-content: left;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  z-index: 1201;
+}
+.hamburger span {
+  display: block;
+  height: 4px;
+  width: 28px;
+  background: #b8860b;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+@media (max-width: 800px) {
+  .logo-nav-container .site-logo {
+    display: none !important;
+  }
+  .logo-nav-container nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 18px;
+    background: #fffbe7;
+    box-shadow: 0 4px 24px rgba(218,165,32,0.12);
+    border-radius: 10px;
+    width: 180px;
+    padding: 1rem 0;
+    z-index: 1200;
+  }
+  .logo-nav-container nav ul.open {
+    display: flex;
+  }
+  .hamburger {
+    display: flex;
+  }
 }
 </style>
 
@@ -811,16 +859,8 @@ body.dark-mode .hero-content p {
     </label>
   </div>
 
-  <!-- USER BAR (Logout & Email) -->
-  <div class="user-bar">
-    <span id="user-email"></span>
-    <button id="logout-btn" aria-label="Logout">Logout</button>
-  </div>
-
-  <!-- Loading Spinner -->
-  <div id="loading-spinner" aria-label="Loading">
-    <div class="spinner"></div>
-  </div>
+ 
+ 
 
   <!-- Order Confirmation Modal -->
   <div id="order-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
@@ -835,18 +875,30 @@ body.dark-mode .hero-content p {
   <header>
     <div class="logo-nav-container">
       <nav>
-        <ul>
+        <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul id="main-nav">
           <li><a href="#menu">Menu</a></li>
           <li><a href="#prices">Prices</a></li>
           <li><a href="#reservation">Reservation</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#FAQ">FAQ</a></li>
           <li><a href="second.html" class="feedback-link">Feedback</a></li>
+          <li><a href="login.html" class="login-link">Login</a></li>
+          <li>
+            <button id="dark-mode-toggle" class="nav-dark-btn" aria-label="Toggle dark mode">Mode🌙</button>
+          </li>
         </ul>
-        <button id="dark-mode-toggle" class="nav-dark-btn" aria-label="Toggle dark mode">🌙</button>
       </nav>
+      <a href="index.html" class="site-logo" aria-label="Delux Bite Home">
+        <img src="assets/log.jpg" alt="Delux Bite Logo" style="height:40px;width:auto;border-radius:8px;vertical-align:middle;">
+      </a>
     </div>
   </header>
+  
 
   <!-- HERO SECTION -->
   <section class="hero-section" id="home">
@@ -869,11 +921,19 @@ body.dark-mode .hero-content p {
         <div class="image-item"><img src="assets/burga.jpg" alt="Burger" loading="lazy"></div>
         <div class="image-item"><img src="assets/chicken wigs.jpg" alt="Chicken Wings" loading="lazy"></div>
         <div class="image-item"><img src="assets/chiken.jpg" alt="Grilled Chicken" loading="lazy"></div>
-        <div class="image-item"><img src="assets/perperoni pizza.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/chiken wigss.webp" alt="Pepperoni Pizza" loading="lazy"></div>
         <div class="image-item"><img src="assets/jellof rice.jpg" alt="Jollof Rice" loading="lazy"></div>
         <div class="image-item"><img src="assets/vergitabale piza.jpg" alt="Vegetable Pizza" loading="lazy"></div>
         <div class="image-item"><img src="assets/perperoni pizza.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
-      </div>
+        <div class="image-item"><img src="assets/sharawa.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/egusi.png" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/ogbono_788x.webp" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/peper soup.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/okoro.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/fried rice.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/indomie.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        <div class="image-item"><img src="assets/spagiti.jpg" alt="Pepperoni Pizza" loading="lazy"></div>
+        </div>
     </section>
   </main>
 
@@ -931,6 +991,52 @@ body.dark-mode .hero-content p {
               <button class="add-to-cart-btn" data-name="Vegetable Pizza" data-price="6000" aria-label="Add Vegetable Pizza to Cart">Add to Cart</button>
             </td>
           </tr>
+          <td>6</td>
+            <td>Egusi</td>
+            <td>₦1,500.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+          <td>7</td>
+            <td>Shawarma</td>
+            <td>₦4,500.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+          <td>8</td>
+            <td>Okoro</td>
+            <td>₦1,500.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+
+          <td>9</td>
+            <td>Egusi</td>
+            <td>₦1,000.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+
+          <td>10</td>
+            <td>Fried Rice</td>
+            <td>₦1,500.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+
+          <td>11</td>
+            <td>Indomie and Egg</td>
+            <td>₦2,500.00</td>
+            <td>
+              <button class="add-to-cart-btn" data-name="Jellof Rice" data-price="2500" aria-label="Add Jellof Rice to Cart">Add to Cart</button>
+            </td>
+          </tr>
+            
         </tbody>
       </table>
     </div>
@@ -969,7 +1075,7 @@ body.dark-mode .hero-content p {
         <u><strong>Contact Address:</strong><br></u>
         jos road tudu,<br>
         Bokkos Plateau State, Nigeria<br>
-        Phone: <a href="tel:+2348001234567" style="color:inherit;text-decoration:underline;">+234 800 123 4567</a><br>
+        Phone: <a href="tel:+2348102408183" style="color:inherit;text-decoration:underline;">+234 2348102408183</a><br>
         Email: <a href="mailto:info@deluxbite.com" style="color:inherit;text-decoration:underline;">info@deluxbite.com</a>
       </div>
     </section>
@@ -1004,15 +1110,15 @@ body.dark-mode .hero-content p {
       <div class="faq-list">
         <div class="faq-item">
           <h3>What is Delux Bite?</h3>
-          <p>Delux Bite is your go-to destination for delicious meals delivered fast to your door. We offer a variety of popular dishes and easy online ordering.</p>
+          <p>Delux Bite is your go-to destination for delicious meals delivered fast to your door in Jos, Bokkos, and Plateau State. We offer a variety of popular dishes and easy online ordering.</p>
         </div>
         <div class="faq-item">
           <h3>How do I place an order?</h3>
-          <p>Simply click the "Order Now" button on the homepage or menu section, fill out the order form, and submit your request. You can also add items to your cart and check out directly from the menu.</p>
+          <p>Click the "Order Now" button on the homepage or menu section, add items to your cart, and check out. You can also use the reservation feature for events.</p>
         </div>
         <div class="faq-item">
           <h3>What payment methods do you accept?</h3>
-          <p>We currently accept cash on delivery. Online payment options will be available soon.</p>
+          <p>We accept cash on delivery and bank transfer. Online payment options are now live.</p>
         </div>
         <div class="faq-item">
           <h3>Where do you deliver?</h3>
@@ -1024,15 +1130,15 @@ body.dark-mode .hero-content p {
         </div>
         <div class="faq-item">
           <h3>How do I contact customer support?</h3>
-          <p>You can reach us via the contact details at the bottom of the page or use the feedback form for any inquiries or suggestions. Alternatively, you can use the chat Icon to chat with a representative.</p>
+          <p>You can reach us via the contact details at the bottom of the page, use the feedback form, or chat with a representative using the WhatsApp icon.</p>
         </div>
         <div class="faq-item">
           <h3>How do I give feedback?</h3>
           <p>Click the "Feedback" link in the navigation menu to access our feedback form and share your thoughts with us.</p>
         </div>
         <div class="faq-item">
-          <h3>How can i add a profile picture?</h3>
-          <p>Click on the avatar circle for picture and select a picture from your galary.</p>
+          <h3>How can I add a profile picture?</h3>
+          <p>Click on the avatar circle at the side of the page and select a picture from your gallery to upload as your profile picture.</p>
         </div>
       </div>
     </section>
@@ -1076,32 +1182,34 @@ body.dark-mode .hero-content p {
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const emailSpan = document.getElementById('user-email');
-        if (emailSpan) {
-          emailSpan.textContent = `Welcome, ${user.email}`;
-        }
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-          logoutBtn.disabled = false;
-          logoutBtn.onclick = async () => {
-            await signOut(auth);
-            window.location.href = "index.html";
-          };
-        }
-      } else {
+  const LoginBtn = document.getElementById('Login-btn');
+  if (user) {
+    if (LoginBtn) {
+      LoginBtn.disabled = false;
+      LoginBtn.onclick = async () => {
+        await signOut(auth);
         window.location.href = "index.html";
-      }
-    });
+      };
+    }
+  } else {
+    if (LoginBtn) {
+      LoginBtn.disabled = true;
+    }
+  }
+});
   </script>
 
   <!-- Cart Sidebar -->
-  <div id="cart-sidebar" aria-label="Shopping Cart">
-    <h3>Your Cart</h3>
-    <ul id="cart-items"></ul>
-    <p id="cart-total"></p>
-    <button onclick="closeCart()" aria-label="Close Cart">Close</button>
-  </div>
+  <!-- Add this inside your #cart-sidebar div, just before the Close button -->
+<!-- filepath: c:\Users\Cleo\Desktop\my webdev\deluxbite\home.html -->
+<div id="cart-sidebar" aria-label="Shopping Cart">
+  <h3>Your Cart</h3>
+  <ul id="cart-items"></ul>
+  <p id="cart-total"></p>
+  <a href="payment.html" id="pay-btn" style="display:inline-block;background:goldenrod;color:#fff;border:none;border-radius:6px;padding:10px 24px;font-weight:bold;font-size:1.1rem;cursor:pointer;margin-bottom:1rem;text-decoration:none;text-align:center;">Pay Now</a>
+  <button onclick="closeCart()" aria-label="Close Cart">Close</button>
+</div>
+  
   <button id="open-cart-btn" title="View Cart" aria-label="View Cart">🛒<span class="cart-badge"></span></button>
   <script>
     // --- Cart logic with modal confirmation and cart count on icon ---
@@ -1176,10 +1284,11 @@ body.dark-mode .hero-content p {
   </script>
 
   <!-- WhatsApp Chat Button -->
-  <a href="https://wa.me/2348001234567" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp" aria-label="Chat with us on WhatsApp">
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="display:block;" xmlns="http://www.w3.org/2000/svg">
+  <a href="https://wa.me/2348102408183?text=Hello%2C%20I%27d%20like%20to%20order%20from%20Delux%20Bite" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp" aria-label="Chat with us on WhatsApp">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="24" cy="24" r="24" fill="#25D366"/>
       <path d="M34.6 29.7c-.5-.3-2.8-1.4-3.2-1.6-.4-.2-.7-.3-1 .3-.3.6-1.1 1.6-1.4 1.9-.3.3-.5.4-1 .1-.5-.3-2.1-.8-4-2.6-1.5-1.3-2.5-2.9-2.8-3.4-.3-.5 0-.8.2-1 .2-.2.5-.6.7-.9.2-.3.2-.5.3-.8.1-.3 0-.6 0-.9 0-.3-.9-2.2-1.3-3-.3-.7-.7-.6-1-.6-.3 0-.6 0-.9 0-.3 0-.7.1-1.1.5-.4.4-1.5 1.5-1.5 3.6 0 2.1 1.5 4.1 1.7 4.4.2.3 3 4.7 7.3 6.4 1 .4 1.8.7 2.4.9.9.3 1.7.3 2.3.2.7-.1 2.1-.9 2.4-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.9-.6z" fill="#fff"/>
+      <path d="M24 12C17.4 12 12 17.4 12 24c0 2.2.6 4.3 1.7 6.2L12 36l5.9-1.6C19.7 35.4 21.8 36 24 36c6.6 0 12-5.4 12-12S30.6 12 24 12zm0 21c-2 0-4-.5-5.7-1.5l-.4-.2-3.5.9.9-3.4-.2-.4C14.5 28 14 26 14 24c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10z" fill="#fff"/>
     </svg>
   </a>
 
@@ -1251,16 +1360,7 @@ body.dark-mode .hero-content p {
   </script>
 
   <!-- Loading Spinner Script -->
-  <script>
-    const spinner = document.getElementById('loading-spinner');
-    document.onreadystatechange = function () {
-      if (document.readyState !== "complete") {
-        spinner.style.display = "flex";
-      } else {
-        spinner.style.display = "none";
-      }
-    };
-  </script>
+ 
 
   <!-- Cookie Consent Banner -->
   <script>
@@ -1301,8 +1401,8 @@ body.dark-mode .hero-content p {
     if (savedAvatar) {
       avatarImg.src = savedAvatar;
     }
-  </script>
-  <script>
+  
+  
     const darkBtn = document.getElementById('dark-mode-toggle');
     darkBtn.onclick = function() {
       document.body.classList.toggle('dark-mode');
@@ -1313,5 +1413,53 @@ body.dark-mode .hero-content p {
       document.body.classList.add('dark-mode');
     }
   </script>
-</body>
-</html>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Dark mode toggle
+  const darkBtn = document.getElementById('dark-mode-toggle');
+  if (darkBtn) {
+    darkBtn.onclick = function() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    };
+    // Load preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+  }
+
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger-menu');
+  const navUl = document.getElementById('main-nav');
+  if (hamburger && navUl) {
+    hamburger.onclick = function() {
+      navUl.classList.toggle('open');
+    };
+    // Close menu when clicking a link (for better UX)
+    navUl.querySelectorAll('a').forEach(link => {
+      link.onclick = () => navUl.classList.remove('open');
+    });
+  }
+
+  // Avatar upload and load from localStorage
+  const avatarInput = document.getElementById('user-avatar-input');
+  const avatarImg = document.getElementById('user-avatar');
+  if (avatarInput && avatarImg) {
+    avatarInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          avatarImg.src = e.target.result;
+          localStorage.setItem('userAvatar', e.target.result);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+    // Load avatar from localStorage if available
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      avatarImg.src = savedAvatar;
+    }
+  }
+});
+</script>
